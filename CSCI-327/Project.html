@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library System</title>
+
+    <style>
+        /* general page setup */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: arial, sans-serif;
+            background-color: white;
+            color: black;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* header and footer style */
+        header, footer {
+            background-color: #c21430; /* Lake Forest College red */
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* logo in header */
+        #logo {
+            position: absolute;
+            left: 15px;
+            top: 5px; 
+            height: 100px;
+        }
+
+        /* page title */
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        /* main content container */
+        .container {
+            width: 80%;
+            margin: auto;
+            padding-top: 20px;
+            flex: 1;
+        }
+
+        /* main menu buttons */
+        .menu-button {
+            background-color: #c21430;
+            color: white;
+            padding: 15px;
+            border: none;
+            margin: 10px;
+            width: 250px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            text-transform: capitalize; /* first letter uppercase */
+        }
+
+        .menu-button:hover {
+            background-color: #9d1128;
+        }
+
+        /* submenu boxes */
+        .submenu {
+            display: none; /* hidden by default */
+            padding: 20px;
+            border-left: 5px solid #c21430;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        /* reader submenu color */
+        .reader-submenu {
+            background-color: #ffeec6; /* Lake Forest College light yellow */
+        }
+
+        /* admin submenu color */
+        .admin-submenu {
+            display: none;
+            padding: 20px;
+            background-color: #edf2da; /* Lake Forest College light green */
+            border-left: 5px solid #c21430;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        /* buttons inside submenus */
+        .submenu button {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #c21430;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: capitalize; /* first letter uppercase */
+        }
+
+        .submenu button:hover {
+            background-color: #9d1128;
+        }
+
+        /* input boxes */
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 250px;
+            text-transform: capitalize; /* first letter uppercase */
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- header with logo and title -->
+<header>
+    <img id="logo" src="logo.png" alt="logo">
+    <h1>Library System</h1>
+</header>
+
+<!-- main container -->
+<div class="container">
+    <h2>Main Menu</h2>
+
+    <!-- main menu buttons -->
+    <button class="menu-button" onclick="openLogin('readerLogin')">Reader Functions</button>
+    <button class="menu-button" onclick="openLogin('adminLogin')">Administrative Functions</button>
+    <button class="menu-button" onclick="quitSystem()">Quit</button>
+
+    <!-- reader login form -->
+    <div id="readerLogin" class="submenu reader-submenu">
+        <h3>Reader Login</h3>
+        <input type="text" placeholder="Card Number / User ID" id="readerID"><br>
+        <button onclick="loginReader()">Login</button>
+    </div>
+
+    <!-- admin login form -->
+    <div id="adminLogin" class="submenu admin-submenu">
+        <h3>Admin Login</h3>
+        <input type="text" placeholder="Admin ID" id="adminID"><br>
+        <input type="password" placeholder="Password" id="adminPW"><br>
+        <button onclick="loginAdmin()">Login</button>
+    </div>
+
+    <!-- reader menu -->
+    <div id="readerMenu" class="submenu reader-submenu">
+        <h3>Reader Functions</h3>
+        <button onclick="alert('Search document (SQL goes here).')">Search Document</button>
+        <button onclick="alert('Checkout document (SQL goes here).')">Document Checkout</button>
+        <button onclick="alert('Return document (SQL goes here).')">Document Return</button>
+        <button onclick="alert('Compute fine (SQL + date logic).')">Compute Fine</button>
+        <button onclick="alert('Documents by publisher (SQL).')">Print by Publisher</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- admin menu -->
+    <div id="adminMenu" class="submenu admin-submenu">
+        <h3>Administrative Functions</h3>
+        <button onclick="alert('Add document copy (SQL).')">Add Document Copy</button>
+        <button onclick="alert('Search document copy (SQL).')">Search Document Copy</button>
+        <button onclick="alert('Add new reader (SQL).')">Add New Reader</button>
+        <button onclick="alert('Print branch info (SQL).')">Print Branch Info</button>
+        <button onclick="alert('Top 10 frequent borrowers (SQL).')">Top 10 Frequent Borrowers</button>
+        <button onclick="alert('Top 10 most borrowed books (SQL).')">Top 10 Borrowed Books</button>
+        <button onclick="alert('Top 10 books of the year (SQL).')">Top 10 Popular Books</button>
+        <button onclick="alert('Average fine paid per reader (SQL).')">Average Fine Paid</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<!-- footer -->
+<footer>
+    <p>&copy; 2025 Lake Forest College</p>
+</footer>
+
+<script>
+/* show submenu by id */
+function openLogin(id) {
+    closeAll();
+    document.getElementById(id).style.display = "block";
+}
+
+/* reader login simulation */
+function loginReader() {
+    const id = document.getElementById("readerID").value;
+    if (id.trim() === "") {
+        alert("Please enter a reader ID.");
+        return;
+    }
+    closeAll();
+    document.getElementById("readerMenu").style.display = "block";
+}
+
+/* admin login simulation */
+function loginAdmin() {
+    const id = document.getElementById("adminID").value;
+    const pw = document.getElementById("adminPW").value;
+    if (id === "" || pw === "") {
+        alert("Please enter both admin ID and password.");
+        return;
+    }
+    closeAll();
+    document.getElementById("adminMenu").style.display = "block";
+}
+
+/* hide all submenus */
+function closeAll() {
+    document.querySelectorAll(".submenu").forEach(menu => menu.style.display = "none");
+}
+
+/* quit system */
+function quitSystem() {
+    alert("Exiting system...");
+    closeAll();
+}
+
+/* logout from menu */
+function logout() {
+    alert("Logged out.");
+    closeAll();
+}
+</script>
+
+</body>
+</html>
