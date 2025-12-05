@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Menu</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Admin Menu</h1>
+</header>
+
+<div class="container">
+    <button onclick="alert('Add copy SQL…')">Add Copy</button>
+    <button onclick="alert('Search copy SQL…')">Search Copies</button>
+    <button onclick="alert('Add reader SQL…')">Add New Reader</button>
+    <button onclick="alert('Branch SQL…')">Print Branch Info</button>
+    <button onclick="alert('Top 10 SQL…')">Top 10 Borrowers</button>
+    <button onclick="alert('Top 10 SQL…')">Top 10 Books</button>
+    <button onclick="alert('Average fine SQL…')">Average Fine Paid</button>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+function logout() {
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
