@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library System - Login</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+
+<header>
+    <img id="logo" src="logo.png" alt="logo">
+    <h1>Library System</h1>
+</header>
+
+<div class="container">
+
+    <h2>Login</h2>
+
+    <input type="text" id="userid" placeholder="User ID"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 College</p>
+</footer>
+
+<script>
+/*
+    Simulated database lookup (YOU will later replace this with PHP + SQL)
+
+    In your actual database:
+       - lib_user.userid = base table for all users
+       - member.userid = readers
+       - librarian.userid = admins
+
+    For now we simulate:
+*/
+const mockDatabase = {
+    // userid: { password: "...", role: "member" or "librarian" }
+    101: { password: "pass101", role: "member" },
+    102: { password: "pass102", role: "member" },
+    201: { password: "admin201", role: "librarian" }
+};
+
+function login() {
+    let id = document.getElementById("userid").value.trim();
+    let pw = document.getElementById("password").value.trim();
+
+    if (id === "" || pw === "") {
+        alert("Please enter both User ID and Password.");
+        return;
+    }
+
+    // Simulate SQL lookup
+    if (!mockDatabase[id]) {
+        alert("User ID not found.");
+        return;
+    }
+
+    // Check password
+    if (mockDatabase[id].password !== pw) {
+        alert("Incorrect password.");
+        return;
+    }
+
+    // Determine role → redirect
+    const role = mockDatabase[id].role;
+
+    if (role === "member") {
+        window.location.href = "user.html";
+    } else if (role === "librarian") {
+        window.location.href = "admin.html";
+    }
+}
+</script>
+
+</body>
+</html>
