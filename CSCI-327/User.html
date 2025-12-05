@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Menu</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+<header>
+    <h1>User Menu</h1>
+</header>
+
+<div class="container">
+    <button onclick="alert('Search SQL…')">Search Document</button>
+    <button onclick="alert('Checkout SQL…')">Checkout</button>
+    <button onclick="alert('Return SQL…')">Return</button>
+    <button onclick="alert('Fine SQL…')">Compute Fine</button>
+    <button onclick="alert('Publisher SQL…')">Print by Publisher</button>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+function logout() {
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
