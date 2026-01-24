@@ -1,0 +1,35 @@
+---
+title: "class notes 1.21"
+format: html
+code-fold: true
+---
+
+A bit more on markdown. We can make lists with bullets or numbers.
+
+- point 1
+
+- point 2
+
+
+1. numbered point 1
+
+2. numbered point 2
+
+
+Here's a link to [my wesite](https://www.equitableequations.com)
+
+Let's make a code chunk. We set chunk options using #| at the top.
+```{r}
+#| label: setup 
+#| #include: false
+#| message: false
+
+library(tidyverse) # load ggplot, etc
+library(readxl)
+
+scooby <- read_excel("scooby.xlsx")
+```
+
+Some useful chunk options include, message, eval(evaluate code or not) and echo (show code in addition to output).These can be true or false
+
+You can also add global options to the yaml header at the top. I've added code-fold: true, which can be nice. The Quarto cheat sheet is a nice resource for this as well as for the chunk options.
