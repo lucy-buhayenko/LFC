@@ -1,0 +1,104 @@
+---
+title: "class notes 1.26"
+author: "Lucy Buhayenko"
+format: html
+code-fold: true
+---
+
+
+
+To make a plot, we need to specify:
+- the data set used
+
+- the variables used and the dimension representing them
+
+- The geometry (type of plot)
+
+- Non-data aspects (aka style)
+
+## Getting started with ggplot2
+
+Notice how these things appear in the scatterplot code below.
+
+```{r}
+#| label: setup
+#| message: false
+library(tidyverse)
+```
+
+We'll be looking at the iris data set.
+
+```{r}
+glimpse(iris)
+```
+Note this appeared in the Annals of Eugenics. History is real.
+
+```{r}
+#aes = aesthatics
+ggplot(iris, 
+       aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_point() + 
+  labs(x = "Sepal width (cm)", 
+       y = "Sepal length (cm)",
+       title = "Irises by a Eugenicist",
+       caption = "Source: Fisher, R.A. (1936)")
+```
+
+
+The grammer of graphics is layered, so we can change or add layers as we see fit.
+```{r}
+#add a little bit of noise to avoid overplotting, so we use geom_jitter
+ggplot(iris, 
+       aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_jitter() + 
+  labs(x = "Sepal width (cm)", 
+       y = "Sepal length (cm)",
+       title = "Irises by a Eugenicist",
+       caption = "Source: Fisher, R.A. (1936)")
+```
+
+
+We might want to add a regression line.
+
+```{r}
+#add a little bit of noise to avoid overploting, so we use geom_jitter
+ggplot(iris, 
+       aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_jitter() + 
+  geom_smooth(method = "lm") +
+  labs(x = "Sepal width (cm)", 
+       y = "Sepal length (cm)",
+       title = "Irises by a Eugenicist",
+       caption = "Source: Fisher, R.A. (1936)")
+```
+
+lm means linear model
+
+It seems odd that sepals tend to get less long as they get wider. This calls for an investigation. I notice that `species` is a variable in the set. This could be relevant.
+
+We can add species to this plot using a third aesthetic.  
+```{r}
+#add a little bit of noise to avoid overploting, so we use geom_jitter
+ggplot(iris, 
+       aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+  geom_jitter() + 
+  geom_smooth(method = "lm") +
+  labs(x = "Sepal width (cm)", 
+       y = "Sepal length (cm)",
+       title = "Irises by a Eugenicist",
+       caption = "Source: Fisher, R.A. (1936)")
+```
+ 
+ Let's change the color palette to be more colorblind-friendly.
+```{r}
+#add a little bit of noise to avoid overploting, so we use geom_jitter
+ggplot(iris, 
+       aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+  geom_jitter() + 
+  geom_smooth(method = "lm") +
+  labs(x = "Sepal width (cm)", 
+       y = "Sepal length (cm)",
+       title = "Irises by a Eugenicist",
+       caption = "Source: Fisher, R.A. (1936)") + scale_color_brewer(palette = "Dark2")
+```
+ 
