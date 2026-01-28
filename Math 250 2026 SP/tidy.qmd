@@ -1,0 +1,70 @@
+---
+title: "tidy.html"
+author: "Lucy Buhayenko"
+format: html
+code-fold: true
+embed-resources: true
+---
+# Homework 2
+
+## 1
+### Four primary aesthetics:
+
+- Variable `income`: GDP per capita and it's represented by the X-axis and it's grouped into income levels 1, 2, 3 and 4.
+- Variable `health`: represented by the Y-axis as life expectancy. Around 50-85 years.
+- Variable `population`: represented by the size of the circle(the bigger the circle the bigger the population).
+- Variable `region`: color represents the world regions - North and South America are green; Africa is blue; Europe and Central Asia is yellow; Middle East and Asia (without Central Asia) is red color.
+
+### Non-data aspects of plot:
+
+1. Dashed vertical lines that help with seeing different income levels
+2. Labeling points with country names
+3. Map legend that shows the color(for regions) and scaling(size of population) for accurate understanding of plot. 
+
+
+
+## 2 
+### Four possible ways of plotting one categorical and one quantitative variable:
+- f <- ggplot(mpg, aes(class, hwy)
+
+#### f + geom_col()
+x, y, alpha, color, fill, group, linetype, size
+
+#### f + geom_boxplot()
+x, y, lower, middle, upper, ymax, ymin, alpha,
+color, fill, group, linetype, shape, size, weight
+
+#### f + geom_dotplot(binaxis = "y", stackdir = “center")
+x, y, alpha, color, fill, group
+
+#### f + geom_violin(scale = “area")
+x, y, alpha, color, fill, group, linetype, size, weight
+
+
+
+## 3
+### Line chart showing changes in unemployment over time:
+
+```{r}
+#| label: dataset economics 
+#| #include: false
+#| message: false
+#| #embed-resources: true
+
+library(tidyverse) # load ggplot
+glimpse(economics) # look at economics data set
+
+ggplot(economics,
+       aes(x = date, y = unemploy)) + 
+  geom_line() + 
+  labs(x = "Year", y = "Number of Unemployed People",
+title ="Unemployment Over Time")
+```
+
+
+
+## 4
+### If add argument alpha = .1:
+- The lines on the graph become much more lighter in color. 
+- Right now the lines are black but if you add alpha = .1, then the lines will get to be light gray color. 
+- Therefore, we set the graph to be high transparancy. 
