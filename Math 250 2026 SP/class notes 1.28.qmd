@@ -1,0 +1,49 @@
+---
+title: "class notes 1.28"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+Question: how can i hide output but still have the code run? How can I have output but not see the code?
+
+Answer: use `results` to hide output but show code and `echo` to hide code but show output. Use `include` to execute code but not show it. Each of these can be true or false
+
+```{r}
+#| results: false
+#| message: false
+
+library(tidyverse)
+library(readxl)
+
+glimpse(economics)
+
+```
+
+As a general rule, include both code and output in Math 250 assignments.
+
+So the above chunk isn't ideal from this perspective.
+
+## Single-variable plots
+
+We'll use the `erykah` data set again.
+
++ you need to complete the previous line -> you do esc and then go back to the previous line 
+
+```{r}
+erykah <- read_excel("erykah.xlsx")
+```
+
+The go-to plot for a single quantitative variable is the histogram.
+
+Let's make one for `danceability`.
+
+```{r}
+ggplot(erykah, 
+       aes(x = danceability)) + 
+  geom_histogram() + 
+  labs(title ="Danceability vs count") + theme_minimal() #for a cleaner look.
+```
+
+
+use built in color pallete and theme
