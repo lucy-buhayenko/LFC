@@ -1,0 +1,129 @@
+---
+title: "Class notes 1.30"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(readxl)
+erykah <- read_excel("erykah.xlsx")
+
+
+```
+
+What happens in the console doesn't happen in the document render
+
+## Histograms and other single quantitative variable plots.
+
+```{r}
+#| warning: false
+ggplot(erykah, 
+       aes (x = danceability)) + 
+  geom_histogram(bins = 15)
+```
+
+- stat(bin)
+- bins = 30 means that we have 30 bins, we can change it to 15
+
+-warning and message are different 
+
+
+```{r}
+#| warning: false
+ggplot(erykah, 
+       aes (x = danceability)) + 
+  geom_histogram(binwidth = .1, 
+                 boundary = 0,
+                 color = "darkgreen",
+                 fill = "lightgreen") + 
+  theme_minimal()
+```
+
+
+
+Boundary is when you can start your graph from 0
+
+Every function has a help file ?helpfile_name
+
+Color refers to boundary color - it's usually used for dots that don't have insides
+
+theme_minimal() gets rid of the gray background 
+Also, you could do: quarto change dimensions of the ggplot
+
+- It's easy to change ot a different sort of plot
+```{r}
+ggplot(erykah, 
+       aes (x = danceability)) + 
+  geom_freqpoly()
+```
+This graph carries the same information as the previous one 
+
+- You might also want to check out `geom_density` or `geom_dotplot`.
+
+## One categorical variable
+
+Let's consider `key_name`
+```{r}
+table(erykah$key_name)
+```
+
+The go-to plot in this case is the bar chart.
+
+```{r}
+ggplot(erykah,
+       aes(x = key_name)) + 
+  geom_bar() + 
+  labs(x = "Key",
+       y = "Frequency",
+       title = "Didn't cha know the key?")
+```
+
+
+- We can change color, fill, etc just with a histogram. Additionally, we can easily reorder the bars.
+
+
+
+```{r}
+ggplot(erykah,
+       aes(x = fct_infreq(key_name))) + 
+  geom_bar() 
+```
+- we order by how often the key happens.
+
+We also can flip the axes.
+
+```{r}
+ggplot(erykah,
+       aes(y = fct_infreq(key_name))) + 
+  geom_bar() 
+```
+
+We can flip also, the frequency order 
+```{r}
+ggplot(erykah, aes(y = fct_rev(fct_infreq(key_name)))) +
+  geom_bar()
+
+```
+
+In general, you should avoid pie chart.
+Angles are harder for human eye to see
+
+## One quantitative and one categorical
+The go-to here is the boxplot, often with the points layered on top.
+
+```{r}
+ggplot(erykah,
+       aes(x = explicit,
+           y = danceability))+
+  geom_boxplot()
+
+```
+
+
+
+
