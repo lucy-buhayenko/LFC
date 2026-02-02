@@ -1,0 +1,157 @@
+---
+title: "class notes 2.2"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(readxl)
+erykah <- read_excel("erykah.xlsx")
+
+
+```
+
+- Usually R ignores spaces in the code like space between erykah and <-
+
+## Boxplots
+
+One categorical, one quantitatice variable 
+
+```{r}
+ggplot(erykah,
+       aes(x = danceability,
+           y = explicit)) + 
+  geom_boxplot()
+```
+
+- In this graph we can see: minimum, Q1, Q2, Q3, maximum; also there is an outlier at point 0 and false; 
+It only shows the summary of the information
+
+#### Boxplots suppress sample size, so it can be nice to plot individual point too, at least when the data set isn't too large.
+
+```{r}
+ggplot(erykah,
+       aes(x = danceability,
+           y = explicit,
+           color = explicit)) + 
+  geom_boxplot(outlier.shape = NA,
+               show.legend = FALSE) + 
+  geom_jitter(alpha = 0.5,
+              show.legend = FALSE) + 
+  scale_color_brewer(palette = "Dark2")
+
+```
+
+
+Now we add a points on top of the graph using `geom_point()`
+
+we use `geom_jitter` for overplotting
+
+`outlier.shape = NA` prevents double plotting
+
+I set opacity to be `alpha = 0.5` because I don't want to stress the points
+
+There is a legend created but we don't need it twice, so we do `show.legend = FALSE`
+
+```{r}
+ggplot(erykah,
+       aes(x = danceability,
+           y = explicit,
+           fill = explicit)) + 
+  geom_boxplot(outlier.shape = NA,
+               show.legend = FALSE) + 
+  geom_jitter(alpha = 0.5,
+              show.legend = FALSE) + 
+  scale_fill_brewer(palette = "Dark2")
+
+```
+We can do `fill` instead of `color`. At the same time you need to change `scale_color_brewer` to `scale_fill_brewer`
+
+- use premade color palatte
+
+## Two categorical variables (bar charts)
+We'll be using the `ISLR2::Carseats` data set.
+
+```{r}
+library(ISLR2)
+glimpse(Carseats)
+```
+
+
+How are `Urban` and `ShelveLoc` related, if at all?
+
+The go-to for 2 categorical variables is the filled bar chart. 
+
+```{r}
+ggplot(Carseats, 
+       aes(x = Urban,
+       fill = ShelveLoc)) + 
+  geom_bar() + 
+  scale_fill_brewer(palette = "Dark2")
+```
+It's about counts
+
+This is called a stacked bar chart emphasizes the varaible on teh x-axis. Relative proportions are kind of hard to see.
+
+A good way to emphasize the proportions is using a filled bar chart.
+```{r}
+ggplot(Carseats, 
+       aes(x = Urban,
+       fill = ShelveLoc)) + 
+  geom_bar(position = "fill") + 
+  scale_fill_brewer(palette = "Dark2")
+```
+
+`position = "fill"` the bars are going all the way up. we see relative proportions
+It;s about proportions
+
+
+A compromise is the side-by-side bar chart
+```{r}
+ggplot(Carseats, 
+       aes(x = Urban,
+       fill = ShelveLoc)) + 
+  geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Dark2")
+```
+`position = "dodge"` is the prettiest but not the most clear one.
+
+
+#### All of these plots emphasize `Urban` variable. So we can reverse our perspective by reversing our aesthatics.
+
+
+```{r}
+ggplot(Carseats, 
+       aes(x = ShelveLoc,
+       fill = Urban)) + 
+  geom_bar() + 
+  scale_fill_brewer(palette = "Dark2")
+```
+
+This emphasizes counts for various shelving locations. 
+
+
+
+## Facets
+
+Another way to display a categorical variable is by making a small plot for each level of the variable. These are called *facets*.
+
+
+```{r}
+ggplot(Carseats,
+       aes(x = Price)) +
+  geom_histogram() + 
+  facet_wrap(~ShelveLoc,
+             ncol = 1)
+```
+One histogram for each level of the variable 
+
+We have x and y axis the same bc we want to compare
+`ncol` for how many columns to have
+
+
