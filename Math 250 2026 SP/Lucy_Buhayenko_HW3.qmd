@@ -1,0 +1,101 @@
+---
+title: "Homework 3"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+code-fold: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+
+library(tidyverse)
+library(modeldata)
+```
+
+## Problem 1
+#### Recreated `Learn to Earn` box-plot
+```{r}
+#| label: problem 1
+ggplot(attrition,
+       aes(x = MonthlyIncome,
+           y = Education,
+           fill = Education)) +
+  labs(x = "Monthly Income", 
+       y = "Education",
+       title = "Learn to Earn") +
+  geom_boxplot(show.legend = FALSE) + 
+  scale_fill_brewer(palette = "Dark2")
+```
+
+
+
+## Problem 2
+#### Recreated age histogram plot
+```{r}
+#| label: problem 2
+ggplot(attrition, 
+       aes (x = Age)) + 
+  geom_histogram(bins = 10,
+                 boundary = 7,
+                 color = "darkgreen",
+                 fill = "lightgreen") + 
+  theme_minimal()
+```
+
+## Problem 3
+#### Bar chart stressing the different levels of job satisfaction but also showing the relative attrition rates within each group
+
+```{r}
+#| label: problem 3
+ggplot(attrition, 
+       aes(x = JobSatisfaction,
+           fill = Attrition)) + 
+  labs(x = "Job Satisfaction",
+       y = "Frequency",
+       title = "Levels of Job Satisfaction with relative attrition rates") + 
+  geom_bar() + 
+  scale_fill_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+## Problem 4
+#### Bar chart clearly comparing the different attrition rates for various levels of job satisfaction.
+
+```{r}
+#| label: problem 4
+ggplot(attrition, 
+       aes(x = JobSatisfaction,
+       fill = Attrition)) + 
+  labs(x = "Job Satisfaction",
+       y = "Frequency",
+       title = "Attrition Rates for Various Levels of Job Satisfaction") + 
+  geom_bar(position = "fill") + 
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal()
+```
+
+
+## Problem 5
+#### Recreated `Income by field` plot
+```{r}
+#| label: problem 5
+ggplot(attrition,
+       aes(x = MonthlyIncome,
+           fill = EducationField)) +
+  labs(x = "Monthly Income",
+       y ="count", 
+       title = "Income by field",
+       caption = "Source: IBM Watson Analytics Lab") + 
+  geom_histogram(binwidth = 655,
+    show.legend = FALSE) + 
+  facet_wrap(~EducationField,
+             ncol = 2) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+
+
