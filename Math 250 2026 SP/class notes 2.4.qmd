@@ -1,0 +1,49 @@
+---
+title: "class notes 2.4"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+code-fold: true
+---
+
+```{r}
+#| label: set
+#| message: false
+
+
+library(tidyverse)
+library(readxl)
+
+scooby <- read_excel("scooby.xlsx")
+```
+
+## Exploring scooby
+What changes have occured over time?
+
+I might start by generating a **lot** of plots with `data_aired` on othe x-axis.
+
+Here's one:
+
+```{r}
+ggplot(scooby,
+       aes(x = date_aired,
+           y = imdb)) + 
+  geom_point()
+```
+
+There are clusters. Why?
+
+Maybe network?
+
+Or show name?
+
+**I can do a bunch of plots to try to find to find out.**
+
+```{r}
+ggplot(scooby,
+       aes(x = date_aired,
+           y = imdb,
+           color = network)) + 
+  geom_point() + 
+  scale_color_brewer(palette = "Dark2")
+```
