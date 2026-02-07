@@ -1,0 +1,91 @@
+---
+title: "class notes 2.6"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+```
+
+## Types of missing data
+
+Missing data is complicated. Let's look a tthe `msleeps` set as the example.
+
+```{r}
+glimpse(msleep)
+```
+
+This is a sample, so some mammals are already missing. Additionally, there are NAs in this set.
+
+#### Types of missing data:
+- Missing completely at random (MCAR). This might be due to random sampling. There is no difference between missing observations and not missing ones except that we don't have the data. 
+
+- Missing at random (MAR). Missingness is correlated with other variables in the set. For instance, we might not have data on rem sleep for small mammals. 
+
+- Missing not at random (MNAR) Missingness is correlated with variables NOT in the data set. 
+
+- NAs are actually encoding something. In teh `msleep` set, conversation status is like this. An NA means that the animal isn't considered endangered. 
+
+## Some basic tools for considering missing data
+
+Identify missing observations:
+
+```{r}
+is.na(msleep$conservation) # is missing
+!is.na(msleep$conservation) # not missing
+
+
+```
+Let's count missing values:
+```{r}
+sum(is.na(msleep$conservation))
+mean(is.na(msleep$conservation))
+```
+
+When doing a data analysis (expecially in this class), get into the habit of commenting on missingness in your varaibales of interest.
+
+It's not a good practice to silently drop NAs. 
+
+#Data wrangling
+
+We'll use `scooby` as an example
+```{r}
+#| code-fold: true
+#| output: false
+#| message: false
+
+library(readxl)
+scooby <- read_excel("scooby.xlsx")
+glimpse(scooby)
+```
+### Suppose I only want episodes ono the CW. The primary tool is `dplyr::filter`
+
+```{r}
+filter(scooby, network == "The CW")
+```
+
+### Or just episodes that imdb at least 8
+
+```{r}
+filter(scooby, imdb >= 8)
+```
+### Or both:
+```{r}
+filter(scooby, 
+       network == "The CW",
+       imdb >= 8)
+
+```
+
+### None at all.
+
+### Keep only missing observations:
+```{r}
+filter(scooby, is.na(imdb))
+```
+
