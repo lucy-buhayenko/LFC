@@ -1,0 +1,72 @@
+---
+title: "class notes 2.9"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+```
+
+
+
+## A bit more on the filter. 
+
+We saw how ot filter using "and" . Here's "or" using the `diamonds` data set:
+
+```{r}
+glimpse(diamonds)
+
+diamonds_colorless <- filter(diamonds,
+                              color == "D" | color == "E")
+
+glimpse(diamonds_colorless)
+```
+
+
+
+When specifying multiple values of a single variabel, the `%in%` command can be helpful.
+
+```{r}
+filter(diamonds, color %in% c("D", "E", "F"))#will only keep the diamonds that are only D E or F
+ c("D", "E", "F") # c makes a vector
+```
+
+## Subsetting columns with select
+
+```{r}
+select(diamonds,
+       carat, 
+       price,
+       color) # you say what columns to keep - carat, price, color
+
+select(diamonds,
+       -carat) # specify columns to omit
+```
+
+Select is very flexible. 
+```{r}
+select(diamonds,
+       table:z) #columns in a range
+
+select(diamonds,
+       2:6) #columns 2-6
+```
+
+In general, you should try to avoid specifying columns by number. It's less reliable (stable)
+
+Some useful helper functions: 
+```{r}
+select(diamonds,
+       starts_with("c")) #column name starts with c; this is good for 'caught' in scooby data set
+```
+
+Also, useful are `ends_with` and `contains`.
+
+`Select` only works for columns. For rows use `filter`
+
+
