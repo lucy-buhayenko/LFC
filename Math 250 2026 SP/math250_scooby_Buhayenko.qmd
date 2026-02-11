@@ -1,0 +1,71 @@
+---
+title: "Batman in Scooby-Doo"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(readxl)
+
+scooby <- read_excel("scooby.xlsx")
+```
+
+
+## Missing Values
+
+```{r}
+sum(is.na(scooby$batman)) # check missing values
+sum(is.na(scooby$suspects_amount))
+```
+#### In `batman` and `suspects_amount` there are no missing values because the missingness is 0 for both.
+
+
+
+## How often does Batman appear in Scooby-Doo?
+
+#### We apply a filter.
+
+```{r}
+filter(scooby, batman == TRUE) 
+```
+
+#### There are 549 episodes in the dataset, and Batman appears in only 3 episodes.
+
+## Graph 1: Demonstrating the amount of times Batman appears in the episodes/movies
+```{r}
+#| label: Batman Appearing Frequency
+ggplot(scooby, 
+       aes(x = batman,
+           fill = batman)) + 
+  geom_bar(show.legend = FALSE) + 
+  labs(x = "Batman Appears",
+       y = "Number of Episodes",
+       title = "Batman vs Regular Episodes") + 
+  scale_fill_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+  Based on the graph 1: The bar plot shows the imbalance with only 3 episodes marked "TRUE" for Batman. Batman appears in only **3 episodes** out of 549. He appears in two crossover episodes from The New Scooby-Doo Movies and one feature length animated movie: Scooby-Doo! & Batman: The Brave and the Bold. They are special events because Batman isn't a regular character in Scooby-Doo. 
+
+## Graph 2: Showing the amount of suspects when Batman is present and absent
+```{r}
+#| label: amount of suspects vs batman
+ggplot(scooby,
+       aes(x = batman,
+           y = suspects_amount,
+           fill = batman)) +
+  geom_boxplot(show.legend = FALSE) + 
+       labs(x = "Batman Appears",
+           y = "Number of Suspects",
+           title = "Number of Suspects in Episodes With and Without Batman") +   
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal()
+```
+  Graph 2 shows that there is a higher median of suspects (about 3 suspects) without Batman, while episodes with Batman have lower median (around 2 suspects), and the spread is much larger for episodes without Batman. In Batman the number of suspects tend to stay within a smaller range, which is approximately from 1 to 2.5, this could mean that the plot is more focused around a specific villain, which leads to less suspects. While a regular episode is usually a complex mystery, so it needs a lot of suspects.
+
+
+
