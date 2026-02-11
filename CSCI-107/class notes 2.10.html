@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Structured Block Elements</title>
+	<meta name="generator" content="BBEdit 15.5">
+	<link rel = "icon" href = "Projects/LFC/CSCI-107/lfc_logo.png">
+</head>
+<body>
+	<b> Nested Lists: </b>
+	<ul>
+		<li>Item 1 </li>
+		<li>Item 2
+			<ul> 
+				<li>Sub item 1 </li>
+				<li>Sub item 2 </li>
+				<li>Sub item 3 </li>
+				<li>Sub item 4 </li>
+					<ol> 
+						<li>Sub sub item 1 </li>
+						<li>Sub sub item 2 </li>
+						<li>Sub sub item 3 </li>
+						<li>Sub sub item 4 </li>
+					</ol>
+			</ul>
+		</li>
+		<li>Item 3 </li>
+	</ul>
+	
+	
+	
+	
+	<b>List of Links </b>
+	
+	<ul>
+		<li> <a href = "http://csci.lakeforest.edu/sharma/csci107/"> Link 1 </a> </li>
+		<li> <a href = "http://csci.lakeforest.edu/~buhayenkol"> Link 2 </a> </li>
+		<li> <a href = "http://csci.lakeforest.edu/sharma/csci107/"> Link 3 same as Link 1 </a> </li>
+	</ul>
+	
+	<b> Tables</b>
+	
+	<table border = "3"> 
+		<tr>
+			<th>Row 1 Cell 1 </th> <!-- in this case we use th, and it means table header. it will make the text bold -->
+			<th>Row 1 Cell 2 </th>
+			<th>Row 1 Cell 3 </th>
+		</tr>
+		
+		<tr>
+			<td>Row 2 Cell 1 </td>
+			<td>Row 2 Cell 2 </td>
+			<td>Row 2 Cell 3 </td>
+		</tr>
+		
+		<tr>
+			<td>Row 3 Cell 1 </td>
+			<td>Row 3 Cell 2 </td>
+			<td>Row 3 Cell 3 </td>
+		</tr>
+	</table>
+	
+	
+	
+	
+	
+	
+	
+	<hr width = "500" align = "left">
+	<b> we want to make a different table that will have a merged the two rows </b>
+	
+	<table border = "2"> 
+		
+		<tr>
+			<td>Row 1 Cell 1 </td>
+			<td rowspan = "2">Row 1 Cell 2 </td> <!--you'll merge two rows  -->
+			
+		</tr>
+		
+		<tr>
+			<td>Row 2 Cell 1 </td>
+			
+		</tr>
+	</table>
+	
+	<hr width = "500" align = "left">
+	<b>let's do a different table </b>
+	<table border = "2">
+	
+		<tr>
+			<td>Row 1 Cell 1 </td>
+			<td colspan = "2"> Row 1 Cell 2 </td>
+		</tr>
+		
+		<tr>
+			<td rowspan = "3"> Row 2 Cell 1 </td>
+			<td>Row 2 Cell 2 </td>
+			<td>Row 2 Cell 3 </td>
+		</tr>
+		
+		
+		<tr>
+			<td>Row 3 Cell 2 </td>
+			<td>Row 3 Cell 3 </td>
+		</tr>
+		
+		<tr>
+			<td>Row 4 Cell 2 </td>
+			<td>Row 4 Cell 3 </td>
+		</tr>
+	</table>
+	
+	<!--
+	<table border = "2">
+	
+	<tr>
+		<td colspan = "3"> Row 1 Cell 1 </td>
+		
+	<tr>
+	
+	
+	<tr>
+	<td roswpan = "2"> Row 2 Cell 
+	</tr>
+	
+	
+	-->
+	<hr width = "500" align = "left">
+	<b> Forms </b>
+	<br>
+	
+	<form action = "echo.php"> <!-- in the file you have one ouput message. once the infomraint you have filled in here. the info will be passed down to the echo php file  -->
+	Please fill out the form below. The fields that are marked with * are required
+	<br>
+		<b> Last Name</b> <br>
+		<input type = "text" name = "lastName" value = " " required>*
+		</b> <br>
+		
+		<b> Email ID</b> <br>
+		<input type = "text" name = "eID" value = " " required>*
+		</b> <br>
+		
+		<b>Your favorite number</b> <br>
+		<input type = "number" name = "favNum" value = " " min = "-3000" max = "3000">
+		</b> <br>
+		
+		<b>How loud are you? (0-10)</b> <br>
+		<input type = "range" name = "loudness" value = " " min = "0" max = "10">
+		</b> <br>
+		
+		<b>Hobbies (0-10)</b> <br>
+		<textarea name = "hobbies" rows = "5"> </textarea>
+		</b> <br>
+		
+		<!--you can choose multiple -->
+		<b>Favorite seasons</b> <br>
+		<input type = "checkbox" name = "seasons[]" value = "summer" > Summer  <br>
+		<input type = "checkbox" name = "seasons[]" value = "winter" > Winter  <br>
+		<input type = "checkbox" name = "seasons[]" value = "fall" > Fall <br>
+		<input type = "checkbox" name = "seasons[]" value = "spring" > Spring  <br>
+
+		</b> <br>
+		
+		
+		
+		<!-- you can choose 1 -->
+		<b>Favorite time of the day</b> <br>
+		<input type = "radio" name = "time" value = "morning" > Morning  <br>
+		<input type = "radio" name = "time" value = "afternoon" > Afternoon  <br>
+		<input type = "radio" name = "time" value = "night" > Night <br>
+		<input type = "radio" name = "time" value = "evening" > Evening  <br>
+
+		</b> <br>
+		
+		
+		<!--you can select from drop down box -->
+		<b> Favorite color of the rainbow</b>
+		<select name = "rainbow">
+			<option value = "red"> Red </option>
+			<option value = "orange"> orange </option>
+			<option value = "yellow"> yellow </option>
+			<option value = "green"> green </option>
+			<option value = "blue"> blue </option>
+			<option value = "indigo"> indigo </option>
+			<option value = "purple"> purple </option>
+		</select> 
+		
+		
+		<br><br>
+		
+		<b> Favorite Pets</b>
+		<select name = "pets[]" multiple>
+			<option value = "cat"> Cat </option>
+			<option value = "dog"> Dog </option>
+			<option value = "fish"> Fish </option>
+			<option value = "tiger"> tiger </option>
+			
+		</select> 
+		
+		<br><br>
+		
+		
+		
+		<input type = "reset">
+		<input type = "submit">
+		
+	</form>
+	
+	
+	if you want an error message to be displayed then you use required so that it will happen 
+	* is just for visual, so that a person know's it's required 
+	<br>
+	value is the default value that will be displayed, like you can write value = "Joe", it will say in the box "Joe"
+	
+	<br><br><br><br><br><br><br><br><br>
+	
+	<!-- website imbedden in your webpage -->
+	<b> IFrames</b>
+	<br>
+	
+	<iframe src = "https://www.wikipedia.org/" name = "frame1" height = "400" width = "400"> </iframe> &nbsp;&nbsp;&nbsp;
+	
+	<iframe src = "https://www.lakeforest.edu/" name = "frame3" height = "400" width = "400"> </iframe>
+
+<br>
+	<a href = "https://www.wikipedia.org/wiki/Tiger" target = "frame1"> Load Tiger Wiki Page into Frame1 </a>
+	
+	<!-- even if the websites do not have the same root structure, you sometimes can do the go from one link to the other>
+
+	
+	
+</body>
+</html>
