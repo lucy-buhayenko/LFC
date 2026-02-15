@@ -1,0 +1,95 @@
+---
+title: "Class notes 2.13"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+```
+
+Next, let's see how to add or modify columns. The primary tool is `dplyr::mutate()`. We'll continue to use `penguins` of now.
+
+```{r}
+glimpse(penguins)
+```
+
+Currently, body mass is in grams. I'm American and demand it be in pounds. 
+
+```{r}
+penguins %>%
+  mutate(body_mass_lb = body_mass * 0.00220462)
+```
+
+(`|>` is also a pipe. It's supposed to look like a triangle)
+
+(still an ugly printout. We could use `head`. We'll learn to make pretty tables later today or maybe Monday.)
+
+- functions are verbs 
+- data sets are nouns
+
+
+Here is a slightly nicer one:
+```{r}
+penguins_sm <- penguins |> 
+  mutate(body_mass_lb = body_mass * 0.00220462) |> 
+  select(species, island, body_mass, body_mass_lb) |> 
+  head(n = 10)
+penguins_sm
+```
+
+Naming an existing column inside of `mutate` will edit that column instead of adding a new one. 
+
+We can add/modify more than one column at once. 
+
+
+```{r}
+penguins_sm <- penguins |> 
+  mutate(body_mass_lb = body_mass * 0.00220462,
+         speices = tolower(species)) |> 
+  select(species, island, body_mass, body_mass_lb) |> 
+  head(n = 10)
+penguins_sm
+```
+
+
+## Great tables
+
+For a small set, the best way to get a good printout is with teh `gt` package. Specifically, the `gt::gt`
+
+```{r}
+library(gt)
+
+gt(penguins_sm)
+```
+
+## Summarizing a set
+
+Let's return to the `diamonds` set. We already know how to get a mean (for instance).
+
+```{r}
+mean(diamonds$price) # a number (vector of length 1)
+```
+
+The tidyverse way:
+
+```{r}
+diamonds |> 
+  summarize(avg_price = mean(price)) # a data frame (tibble)
+```
+
+We can do multiple summary statistics at once
+```{r}
+diamonds |> 
+  summarize(avg_price = mean(price),
+            sd_price = sd(price),
+            max_pirce = max(price)) # a data frame (tibble)
+```
+
+
+Next time: what if we want the avg price for each `cut of diamond`?
+
