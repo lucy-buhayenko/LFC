@@ -1,0 +1,88 @@
+---
+title: "class notes 2.11"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(readxl)
+
+```
+
+## Arranging observations with `arrange()`
+
+Let's use the built-in `penguins` data set. 
+
+```{r}
+glimpse(penguins)
+```
+
+Let's get the smallest bill lengths first.
+
+```{r}
+arrange(penguins, bill_len)
+```
+
+The `head` command will truncate the printout
+
+```{r}
+head(arrange(penguins, desc(bill_len))) # reverse order 
+```
+
+We can arrange using a categorical variable too, and we can break ties using a second variable. 
+
+```{r}
+arrange(penguins,
+        island, # sort alphabetically by island
+        bill_len) # break ties with bill_len
+```
+
+When we arrange, we put the NA last. also it's arranged by island first and then bill_length from smallest to largest
+
+## Multiple operations
+
+Suppose we want only Gentoo penguins, arranged by bill length, only the species and bill length variables. Here are two non-ideal ways to do this:
+
+```{r}
+arrange(select(filter(penguins,
+                      species == "Gentoo"),
+                species, bill_len), 
+       bill_len)
+```
+
+
+
+
+```{r}
+penguins_gentoo <- filter(penguins, species == "Gentoo") #reduce rows
+penguins_gentoo_sm <- select(penguins_gentoo, species, bill_len) #reduce columns
+arrange(penguins_gentoo_sm, bill_len) #same output, but style different of code
+```
+
+
+
+
+The best way to combine operations like this is with the **pipe**, which we read as "and then".
+
+
+```{r}
+penguins %>% 
+  filter(species == "Gentoo") %>%
+  select(species, bill_len) %>%
+  arrange(bill_len) # same output
+  
+  
+```
+
+
+
+The pipe passes teh object on the left to the function on the right as the first argument. This works becuase all our functions have a data set as the first argument.
+
+This code can be read, "take the penguins set, filter it, then select columns, then arrange it."
+
+Get on board with the pipe **now**. You must use it on the next homework or you will lose credit. 
