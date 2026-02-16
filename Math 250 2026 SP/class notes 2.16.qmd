@@ -1,0 +1,115 @@
+---
+title: "class notes 2.16"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+```
+
+Do colorless diamonds cost less?
+
+```{r}
+diamonds_color <- diamonds |> 
+  summarize(avg_price = mean(price),
+            sd_price = sd(price),
+            .by = color) |> 
+  arrange(color)
+```
+
+`.by` means group by 
+
+- mean is `mean()`
+- standard deviation is `sd()`
+
+Let's see a bar chart of this:
+
+```{r}
+ggplot(diamonds_color, 
+       aes(x = color,
+           y = avg_price)) + 
+  geom_col() +
+  labs(y = "Avg. Price",
+       x = "Color") + 
+  theme_minimal()
+```
+
+One problem with this: neither our table nor our plot shows the number fo observations in each group. 
+
+```{r}
+diamonds_color <- diamonds |> 
+  summarize(avg_price = mean(price),
+            sd_price = sd(price),
+            count = n(),
+            .by = color) |> 
+  arrange(color)
+diamonds_color
+```
+
+A nice table:
+```{r}
+gt::gt(diamonds_color)
+```
+
+From `gt` package use `gt` function
+
+
+To rename columns, use `dplyr::rename()`.
+
+If all you want is counts, you ocaon use `count()`.
+
+```{r}
+diamonds |> 
+  count(color)
+```
+
+
+
+We can count and group by multiple columns/variables.
+
+```{r}
+diamonds |> 
+  count(color, cut)
+```
+
+
+```{r}
+diamonds |> 
+  summarize(avg_price = mean(price),
+            sd_price = sd(price),
+            count = n(),
+            .by = c(color, cut)) 
+```
+
+Older syntax that is still useful:
+
+```{r}
+diamonds |> 
+  group_by(color) |> 
+  summarize(avg_price = mean(price))
+```
+
+Still it's better to use `.by` (more clear)
+
+
+
+## Grouped filters and mutates
+
+Let's add a column with the avg price for each color diamond to the original set.
+
+```{r}
+diamonds |> 
+  select(-c(x, y, z)) |> 
+  mutate(avg_price_for_color = mean(price),
+         .by = color)
+```
+
+`-` in select removes columns
+
+
+Next time: does Scooby rooby more now than in 1969?
