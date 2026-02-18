@@ -1,0 +1,84 @@
+---
+title: "class notes 2.18"
+author: "Lucy Buhayenko"
+format: html
+embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(ISLR2)
+library(gt)
+library(readxl)
+scooby <- read_excel("scooby.xlsx")
+```
+
+
+## `dplyr` homework problem 6
+
+Using the `.by` argument:
+
+```{r}
+Carseats |>
+  summarize(avg_price = mean(Price),
+            avg_comp_price = mean(CompPrice),
+            .by = c(US, ShelveLoc))
+```
+
+### Rounded version
+
+```{r}
+printout <- Carseats |> 
+  summarize(avg_price = round(mean(Price), 0),
+            avg_comp_price = round(mean(CompPrice),0),
+            .by = c(US, ShelveLoc)) 
+ 
+printout
+```
+
+
+#Remember
+- warning:false
+- message: false
+
+- the name should be visible everywhere
+
+## Scooby is Roobies
+
+How has Scooby's use of his catchphrase "Rooby Rooby Roo" changed over time?
+```{r}
+glimpse(scooby)
+```
+
+```{r}
+ggplot(scooby,
+       aes(x = date_aired,
+           y = rooby_rooby_roo)) + 
+  geom_point()
+```
+
+TO make this better, let's group by year and consider average number fo roobies per episode in each year.
+
+```{r}
+rooby_by_year <- scooby |> 
+  summarize(avg_rooby = mean(rooby_rooby_roo,
+                             na.rm = TRUE),
+    .by = year)
+
+gt(head(rooby_by_year))
+```
+
+( I should mention NAs here)
+
+```{r}
+ggplot(rooby_by_year,
+       aes(x = year,
+           y = avg_rooby)) + 
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+For A-level work, we need to include the number of episodes in each year, perhaps with a size aesthetic. 
