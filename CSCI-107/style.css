@@ -1,0 +1,20 @@
+h1{
+color: #990000;
+font-size: 14pt;
+font-family: "Comic Sans MS";
+font-weight: bold;
+}
+
+div{color: #990099;}
+
+/* These are called style element selectors */
+
+
+/*class selectors is like this: .person -> the . is showing you that this is class*/
+.person{
+color: #00FF00;
+}
+
+div.person2{
+color: #0000FF;
+}

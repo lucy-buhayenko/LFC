@@ -1,0 +1,37 @@
+body{
+border: 3px solid #000000;
+padding: 3px;
+}/*element selector  */
+
+div{
+border: 2px dotted #990000;
+margin:3px
+}/*element selector  */
+
+span{
+border:2px dotted #009900;
+margin:3px
+}/*element selector  */
+
+/*margin and border are CSS selectors and they are type  element selector*/
+
+span.green{
+color:#00FF00;
+}
+
+span.red{
+color: #FF0000;
+}
+
+.purple{
+color: #FF00FF;}
+
+b{
+font-style:italic;
+font-weight:normal;
+}
+
+i{
+font-style: normal;
+font-weight:bold;
+}
